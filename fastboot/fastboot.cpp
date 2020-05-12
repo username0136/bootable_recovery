@@ -36,8 +36,13 @@ static const std::vector<std::pair<std::string, Device::BuiltinAction>> kFastboo
   { "Power off", Device::SHUTDOWN_FROM_FASTBOOT },
 };
 
-void FillDefaultFastbootLines(std::vector<std::string>& title_lines) {
+  void FillDefaultFastbootLines(std::vector<std::string>& title_lines) {
   title_lines.push_back("Android Fastboot");
+  
+  Device::BuiltinAction StartFastboot(Device* device, const std::vector<std::string>& /* args */) {
+  RecoveryUI* ui = device->GetUI();
+
+  std::vector<std::string> title_lines;
   title_lines.push_back("Product name - " + android::base::GetProperty("ro.product.device", ""));
   title_lines.push_back("Bootloader version - " + android::base::GetProperty("ro.bootloader", ""));
   title_lines.push_back("Baseband version - " +
